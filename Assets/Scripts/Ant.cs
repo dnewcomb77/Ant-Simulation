@@ -235,8 +235,13 @@ public class Ant : MonoBehaviour
 
 		if (targetFood == null)
 		{
-			int numFoodInRadius = Physics2D.OverlapCircleNonAlloc(perceptionCentre.position, settings.perceptionRadius, foodColliders, foodMask);
-			if (numFoodInRadius > 0)
+			ContactFilter2D foodFilter = default(ContactFilter2D);
+            foodFilter.useTriggers = Physics2D.queriesHitTriggers;
+            foodFilter.SetLayerMask(foodMask);
+            foodFilter.SetDepth(float.NegativeInfinity, float.PositiveInfinity);
+			int numFoodInRadius = Physics2D.OverlapCircle(perceptionCentre.position, settings.perceptionRadius, foodFilter, foodColliders);
+
+            if (numFoodInRadius > 0)
 			{
 				targetFood = foodColliders[Random.Range(0, numFoodInRadius)].transform;
 				targetFood.gameObject.layer = 0;
