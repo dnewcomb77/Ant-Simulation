@@ -234,8 +234,8 @@ public class Ant : MonoBehaviour
 
 
 		if (targetFood == null)
-		{
-			ContactFilter2D foodFilter = default(ContactFilter2D);
+        {
+            ContactFilter2D foodFilter = default;
             foodFilter.useTriggers = Physics2D.queriesHitTriggers;
             foodFilter.SetLayerMask(foodMask);
             foodFilter.SetDepth(float.NegativeInfinity, float.PositiveInfinity);
